@@ -3,12 +3,13 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCejCxyBSOJ7WMboCu8GDkkPyXzbUASuew",
-    authDomain: "kicker-olama.firebaseapp.com",
-    projectId: "kicker-olama",
-    storageBucket: "kicker-olama.appspot.com",
-    messagingSenderId: "489009171392",
-    appId: "1:489009171392:web:72936f3d219a77d2701625"
+  apiKey: "AIzaSyDNF32XqyJFCbauA-g38lcqXT440ESyTSI",
+  authDomain: "keeker-51f52.firebaseapp.com",
+  databaseURL: "https://keeker-51f52-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "keeker-51f52",
+  storageBucket: "keeker-51f52.appspot.com",
+  messagingSenderId: "835284069795",
+  appId: "1:835284069795:web:41eafb0f37a3871c1d3e16"
 };
 
 firebase.initializeApp(firebaseConfig);
