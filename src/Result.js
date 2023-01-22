@@ -15,7 +15,11 @@ const Result = (props) => {
         const [resultList, setResultList] = useState([]);
         const [matchtList, setMatchList] = useState([]);
 
-    const readKickerRanking = async function () {
+        useEffect(() => {
+            const matchlist = [];
+
+
+const readKickerRanking = async function () {
         const query = location.state.param ? `?group=${location.state.param}` : '',
             ranking_url = `${window.location.origin}/api/ranking${query}`,
             matches_url = `${window.location.origin}/api/matches${query}`,
@@ -30,10 +34,7 @@ const Result = (props) => {
         
         setResultList(ranking.data);
     } 
-
-        useEffect(() => {
-            const matchlist = [];
-            readKickerRanking();
+            ReadKickerRanking();
             FirestoreService.getMatchList(location.state.param)
                 .then((querySnapshot) => {
                     querySnapshot.forEach((doc) => {
@@ -42,7 +43,7 @@ const Result = (props) => {
                     matchlist.sort((a, b) => (new Date(a.data * 1000).getTime() - new Date(b.data * 1000).getTime()))
                     setMatchList(matchlist.reverse());
                 });
-        }, [location, readKickerRanking]);
+        }, [location]);
 
     const renderTableData = () => {
         return matchtList.map((match, index) => {
