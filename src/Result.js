@@ -19,7 +19,7 @@ const Result = (props) => {
             const matchlist = [];
 
 
-const readKickerRanking = async function () {
+const ReadKickerRanking = async function () {
         const query = location.state.param ? `?group=${location.state.param}` : '',
             ranking_url = `${window.location.origin}/api/ranking${query}`,
             matches_url = `${window.location.origin}/api/matches${query}`,
