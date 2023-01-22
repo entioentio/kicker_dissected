@@ -42,7 +42,7 @@ const Result = (props) => {
                     matchlist.sort((a, b) => (new Date(a.data * 1000).getTime() - new Date(b.data * 1000).getTime()))
                     setMatchList(matchlist.reverse());
                 });
-        }, []);
+        }, [location, readKickerRanking]);
 
     const renderTableData = () => {
         return matchtList.map((match, index) => {
