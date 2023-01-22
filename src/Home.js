@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import * as FirestoreService from "./services/firestore";
 import 'react-toastify/dist/ReactToastify.css';
-import {TabPanel} from "react-tabs";
 
 
 const Home = (props) => {
