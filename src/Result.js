@@ -15,6 +15,22 @@ const Result = (props) => {
         const [resultList, setResultList] = useState([]);
         const [matchtList, setMatchList] = useState([]);
 
+    const readKickerRanking = async function () {
+        const query = location.state.param ? `?group=${location.state.param}` : '',
+            ranking_url = `${window.location.origin}/api/ranking${query}`,
+            matches_url = `${window.location.origin}/api/matches${query}`,
+            ranking = await axios.get(ranking_url),
+            matches = await axios.get(matches_url);
+            
+        ranking.data.map(r => {
+          r.wins = matches.data.reduce((acc, match) => (match.winners.indexOf(r.user) >= 0 ? 1 : 0) + acc, 0);
+          r.loses = matches.data.reduce((acc, match) => (match.losers.indexOf(r.user) >= 0 ? 1 : 0) + acc, 0);
+          return r;
+        });
+        
+        setResultList(ranking.data);
+    } 
+
         useEffect(() => {
             const matchlist = [];
             readKickerRanking();
@@ -40,22 +56,6 @@ const Result = (props) => {
                 </tr>
             )
         })
-    }
-
-    const readKickerRanking = async function () {
-        const query = location.state.param ? `?group=${location.state.param}` : '',
-            ranking_url = `${window.location.origin}/api/ranking${query}`,
-            matches_url = `${window.location.origin}/api/matches${query}`,
-            ranking = await axios.get(ranking_url),
-            matches = await axios.get(matches_url);
-            
-        ranking.data.map(r => {
-          r.wins = matches.data.reduce((acc, match) => (match.winners.indexOf(r.user) >= 0 ? 1 : 0) + acc, 0);
-          r.loses = matches.data.reduce((acc, match) => (match.losers.indexOf(r.user) >= 0 ? 1 : 0) + acc, 0);
-          return r;
-        });
-        
-        setResultList(ranking.data);
     }
 
     const renderRankingTableData = () => {
