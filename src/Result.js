@@ -7,7 +7,6 @@ import 'reactjs-popup/dist/index.css';
 import * as FirestoreService from './services/firestore';
 import NewResult from './NewResult';
 import axios from 'axios';
-const { URL } = process.env
 
 
 const Result = (props) => {
@@ -53,6 +52,7 @@ const Result = (props) => {
         ranking.data.map(r => {
           r.wins = matches.data.reduce((acc, match) => (match.winners.indexOf(r.user) >= 0 ? 1 : 0) + acc, 0);
           r.loses = matches.data.reduce((acc, match) => (match.losers.indexOf(r.user) >= 0 ? 1 : 0) + acc, 0);
+          return r;
         });
         
         setResultList(ranking.data);
