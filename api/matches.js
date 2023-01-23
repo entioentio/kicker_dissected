@@ -4,7 +4,7 @@ import {initializeApp} from 'firebase/app';
 require('dotenv').config();
 
 const firebaseConfig = {
-        projectId: "keeker-51f52"
+         projectId: "kicker-olama"
     },
 
     app = initializeApp(firebaseConfig),
