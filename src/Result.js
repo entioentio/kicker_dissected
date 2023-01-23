@@ -10,40 +10,42 @@ import axios from 'axios';
 
 
 const Result = (props) => {
-        const history = useHistory();
-        const location = useLocation();
-        const [resultList, setResultList] = useState([]);
-        const [matchtList, setMatchList] = useState([]);
+	const history = useHistory();
+	const location = useLocation();
+	const [resultList, setResultList] = useState([]);
+	const [matchtList, setMatchList] = useState([]);
 
-        useEffect(() => {
-            const matchlist = [];
+	useEffect(() => {
+		const matchlist = [];
 
 
-const ReadKickerRanking = async function () {
-        const query = location.state.param ? `?group=${location.state.param}` : '',
-            ranking_url = `${window.location.origin}/api/ranking${query}`,
-            matches_url = `${window.location.origin}/api/matches${query}`,
-            ranking = await axios.get(ranking_url),
-            matches = await axios.get(matches_url);
-            
-        ranking.data.map(r => {
-          r.wins = matches.data.reduce((acc, match) => (match.winners.indexOf(r.user) >= 0 ? 1 : 0) + acc, 0);
-          r.loses = matches.data.reduce((acc, match) => (match.losers.indexOf(r.user) >= 0 ? 1 : 0) + acc, 0);
-          return r;
-        });
-        
-        setResultList(ranking.data);
-    } 
-            ReadKickerRanking();
-            FirestoreService.getMatchList(location.state.param)
-                .then((querySnapshot) => {
-                    querySnapshot.forEach((doc) => {
-                        matchlist.push(doc.data());
-                    });
-                    matchlist.sort((a, b) => (new Date(a.data * 1000).getTime() - new Date(b.data * 1000).getTime()))
-                    setMatchList(matchlist.reverse());
-                });
-        }, [location]);
+	const ReadKickerRanking = async function () {
+		const query = location.state.param ? `?group=${location.state.param}` : '',
+			ranking_url = `${window.location.origin}/api/ranking${query}`,
+			matches_url = `${window.location.origin}/api/matches${query}`,
+			ranking = await axios.get(ranking_url),
+			matches = await axios.get(matches_url);
+		
+		ranking.data.map(r => {
+		r.wins = matches.data.reduce((acc, match) => (match.winners.indexOf(r.user) >= 0 ? 1 : 0) + acc, 0);
+		r.loses = matches.data.reduce((acc, match) => (match.losers.indexOf(r.user) >= 0 ? 1 : 0) + acc, 0);
+		return r;
+		});
+		
+		setResultList(ranking.data);
+	} 
+	
+	ReadKickerRanking();
+	
+	FirestoreService.getMatchList(location.state.param)
+		.then((querySnapshot) => {
+			querySnapshot.forEach((doc) => {
+				matchlist.push(doc.data());
+			});
+			matchlist.sort((a, b) => (new Date(a.data * 1000).getTime() - new Date(b.data * 1000).getTime()))
+			setMatchList(matchlist.reverse());
+		});
+	}, [location]);
 
     const renderTableData = () => {
         return matchtList.map((match, index) => {

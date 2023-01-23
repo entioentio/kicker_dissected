@@ -19,6 +19,10 @@ export const getRankingList = company => {
     return db.collection("user").where("group", "==", company).get();
 };
 
+export const getUsersOfGroup = company => {
+    return db.collection("match").where("group", "==", company).get();
+};
+
 
 export const getGroupList = company => {
     return db.collection("group").orderBy("name", "asc").get();

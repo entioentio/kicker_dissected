@@ -27,8 +27,11 @@ class NewResult extends PureComponent {
             validWin: false,
         };
         this.setMatchList();
+		this.getGroupUsers();
         this.handleWinnersChange = this.handleWinnersChange.bind(this);
         this.handleLosersChange = this.handleLosersChange.bind(this);
+		this.handleWinnersDropDownChange = this.handleWinnersDropDownChange.bind(this);
+        this.handleWinnersDropDownChange = this.handleWinnersDropDownChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.checkPass = this.checkPass.bind(this);
         this.revertTeams = this.revertTeams.bind(this);
@@ -48,6 +51,18 @@ class NewResult extends PureComponent {
         this.loadMatchList(event.target.value.replaceAll(" ","").toLocaleLowerCase(), 'validLoss');
         this.setState({losers: event.target.value.replaceAll(" ","").toLocaleLowerCase()});
     }
+
+	handleWinnersDropDownChange(event) {
+		const result = Array.prototype.slice.call(event.target.options).filter(o => o.selected).map(o => o.value).join(',');
+
+		this.setState({winners: result});
+	}
+
+	handleLosersDropDownChange(event) {
+        const result = Array.prototype.slice.call(event.target.options).filter(o => o.selected).map(o => o.value).join(',');
+
+		this.setState({losers: result});
+	}
 
     checkPass(event) {
         this.setState({checkPass: event.target.value});
@@ -97,6 +112,7 @@ class NewResult extends PureComponent {
                                 draggable: true,
                                 progress: undefined,
                             })
+							this.redirectToHome();
                         });
                     }
                 });
@@ -144,17 +160,18 @@ class NewResult extends PureComponent {
     }
 
     getGroupUsers = () => {
-        const userList = [];
         //  const group = myRef1.current.options[myRef1.current.selectedIndex].value;
-        FirestoreService.getRankingList(this.props.group)
+        FirestoreService.getUsersOfGroup(this.props.group)
             .then((querySnapshot) => {
+				const users = new Set();
                 querySnapshot.forEach((doc) => {
-                    userList.push(doc.data().name);
+                    const { losers, winners } = doc.data();
+
+					[...losers, ...winners].forEach(user => users.add(user))
                 });
-                this.setState({userList: userList});
+                this.setState({userList: Array.from(users)});
             });
     };
-
 
     render() {
         return (
@@ -168,6 +185,10 @@ class NewResult extends PureComponent {
                     <br/>
                     <label>
                         Winners:
+						<select class="form-select" multiple="true" onChange={this.handleWinnersDropDownChange}> {
+							this.state.userList.map(user =>
+								<option value={user}>{user}</option>
+						)} </select>
                         <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" value={this.state.winners}
                                onChange={this.handleWinnersChange}/>
 
@@ -177,6 +198,10 @@ class NewResult extends PureComponent {
                     <br/>
                     <label>
                         Losers:
+						<select class="form-select" multiple="true" onChange={this.handleLosersDropDownChange}> {
+							this.state.userList.map(user =>
+								<option value={user}>{user}</option>
+						)} </select>
                         <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" value={this.state.losers}
                                onChange={this.handleLosersChange}/>
                     </label>
