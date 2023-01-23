@@ -7,13 +7,13 @@ import { getAnalytics } from "firebase/analytics";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyDNF32XqyJFCbauA-g38lcqXT440ESyTSI",
-  authDomain: "keeker-51f52.firebaseapp.com",
-  databaseURL: "https://keeker-51f52-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "keeker-51f52",
-  storageBucket: "keeker-51f52.appspot.com",
-  messagingSenderId: "835284069795",
-  appId: "1:835284069795:web:41eafb0f37a3871c1d3e16"
+  apiKey: "AIzaSyCzO1tFIPeqvvUhb_wz7xydzjXQIM6Ck2o",
+  authDomain: "kicker-app-9cd86.firebaseapp.com",
+  projectId: "kicker-app-9cd86",
+  storageBucket: "kicker-app-9cd86.appspot.com",
+  messagingSenderId: "269451121959",
+  appId: "1:269451121959:web:cc44393a0239a532bd4502",
+  measurementId: "G-ELFGF2JKB9"
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
