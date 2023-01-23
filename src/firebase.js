@@ -14,7 +14,6 @@ const firebaseConfig = {
   storageBucket: "keeker-51f52.appspot.com",
   messagingSenderId: "835284069795",
   appId: "1:835284069795:web:41eafb0f37a3871c1d3e16"
-};
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
