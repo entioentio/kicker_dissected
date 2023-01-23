@@ -31,7 +31,7 @@ class NewResult extends PureComponent {
         this.handleWinnersChange = this.handleWinnersChange.bind(this);
         this.handleLosersChange = this.handleLosersChange.bind(this);
 		this.handleWinnersDropDownChange = this.handleWinnersDropDownChange.bind(this);
-        this.handleWinnersDropDownChange = this.handleWinnersDropDownChange.bind(this);
+        this.handleLosersDropDownChange = this.handleLosersDropDownChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.checkPass = this.checkPass.bind(this);
         this.revertTeams = this.revertTeams.bind(this);
