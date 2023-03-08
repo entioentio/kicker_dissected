@@ -17,6 +17,11 @@
   to = "/index.html"
   status = 200
 
+[[headers]]
+  for = "/api/*"
+    [headers.values]
+    Access-Control-Allow-Origin = "*"
+
 [build.environment]
 NODE_VERSION = "14.16.0"
 
