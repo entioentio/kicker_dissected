@@ -2,6 +2,12 @@ const skill = require('ts-trueskill');
 const axios = require('axios');
 const { URL } = process.env
 
+const headers = {
+	'Access-Control-Allow-Origin': '*',
+	'Access-Control-Allow-Headers': 'Content-Type',
+	'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE'
+  };
+  
 
 exports.handler = async function (event, context) {
     const query = event.queryStringParameters.group ? `?group=${event.queryStringParameters.group}` : '',
@@ -12,6 +18,7 @@ exports.handler = async function (event, context) {
     console.log("Matches: ", matches.data)
     matches.data.forEach(match => ranks = processMatch(match, ranks))
     return {
+		headers,
         statusCode: 200,
         body: JSON.stringify(formatRank(ranks).sort((a,b) => b.rank - a.rank))
     };
